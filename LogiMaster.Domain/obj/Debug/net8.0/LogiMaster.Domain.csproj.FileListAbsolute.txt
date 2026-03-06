@@ -1,0 +1,23 @@
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.deps.json
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.AssemblyInfoInputs.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.AssemblyInfo.cs
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.csproj.CoreCompileInputs.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.sourcelink.json
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/refint/LogiMaster.Domain.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Domain/obj/Debug/net8.0/ref/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.deps.json
+/home/thalyson/projetos/log/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Domain/bin/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.AssemblyInfoInputs.cache
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.AssemblyInfo.cs
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.csproj.CoreCompileInputs.cache
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/refint/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/ref/LogiMaster.Domain.dll

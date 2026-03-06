@@ -1,0 +1,351 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/thalyson/projetos/log/src/LogiMaster.API/LogiMaster.API.csproj": {}
+  },
+  "projects": {
+    "/home/thalyson/projetos/log/src/LogiMaster.API/LogiMaster.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/thalyson/projetos/log/src/LogiMaster.API/LogiMaster.API.csproj",
+        "projectName": "LogiMaster.API",
+        "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.API/LogiMaster.API.csproj",
+        "packagesPath": "/home/thalyson/.nuget/packages/",
+        "outputPath": "/home/thalyson/projetos/log/src/LogiMaster.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thalyson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj": {
+                "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj"
+              },
+              "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/LogiMaster.Infrastructure.csproj": {
+                "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/LogiMaster.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[8.4.2, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "itext7.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/thalyson/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj",
+        "projectName": "LogiMaster.Application",
+        "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj",
+        "packagesPath": "/home/thalyson/.nuget/packages/",
+        "outputPath": "/home/thalyson/projetos/log/src/LogiMaster.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thalyson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj": {
+                "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[8.4.2, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.14.1, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[10.0.3, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.9, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/thalyson/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj",
+        "projectName": "LogiMaster.Domain",
+        "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj",
+        "packagesPath": "/home/thalyson/.nuget/packages/",
+        "outputPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thalyson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/thalyson/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/LogiMaster.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/LogiMaster.Infrastructure.csproj",
+        "projectName": "LogiMaster.Infrastructure",
+        "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/LogiMaster.Infrastructure.csproj",
+        "packagesPath": "/home/thalyson/.nuget/packages/",
+        "outputPath": "/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thalyson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj": {
+                "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj"
+              },
+              "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj": {
+                "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/thalyson/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

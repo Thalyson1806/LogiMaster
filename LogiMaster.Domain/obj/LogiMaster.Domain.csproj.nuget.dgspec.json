@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj": {}
+  },
+  "projects": {
+    "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj",
+        "projectName": "LogiMaster.Domain",
+        "projectPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/LogiMaster.Domain.csproj",
+        "packagesPath": "/home/thalyson/.nuget/packages/",
+        "outputPath": "/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thalyson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/thalyson/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

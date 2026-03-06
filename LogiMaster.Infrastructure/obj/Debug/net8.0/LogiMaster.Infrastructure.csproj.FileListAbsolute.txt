@@ -1,0 +1,39 @@
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.deps.json
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.runtimeconfig.json
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Application.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Application.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.csproj.AssemblyReference.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.AssemblyInfoInputs.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.AssemblyInfo.cs
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.csproj.CoreCompileInputs.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.sourcelink.json
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/refint/LogiMaster.Infrastructure.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.pdb
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.genruntimeconfig.cache
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/ref/LogiMaster.Infrastructure.dll
+/home/thalyson/Área de trabalho/log/logistica-int/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMast.AA741195.Up2Date
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.deps.json
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.runtimeconfig.json
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Infrastructure.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Application.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Domain.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/bin/Debug/net8.0/LogiMaster.Application.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.csproj.AssemblyReference.cache
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.AssemblyInfoInputs.cache
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.AssemblyInfo.cs
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.csproj.CoreCompileInputs.cache
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMast.AA741195.Up2Date
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/refint/LogiMaster.Infrastructure.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.pdb
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.genruntimeconfig.cache
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/ref/LogiMaster.Infrastructure.dll

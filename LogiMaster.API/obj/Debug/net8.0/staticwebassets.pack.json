@@ -1,0 +1,205 @@
+{
+  "Files": [
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - 1123 (Polimetri Industria Metalurgica LTDA).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - 1123 (Polimetri Industria Metalurgica LTDA).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - 12356 (Polimetri).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - 12356 (Polimetri).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - 3333 (Benteler).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - 3333 (Benteler).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - 4445 (Polimetri Industria Metalurgica LTDA).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - 4445 (Polimetri Industria Metalurgica LTDA).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - 55555 (FCM Limeira).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - 55555 (FCM Limeira).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - PL20260220163332442 (Polimetri Industria Metalurgica LTDA).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - PL20260220163332442 (Polimetri Industria Metalurgica LTDA).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/NF - PL20260220165615203 (Polimetri Industria Metalurgica LTDA).pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/NF - PL20260220165615203 (Polimetri Industria Metalurgica LTDA).pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_1_20260220132939.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_1_20260220132939.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_2_20260219190356.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_2_20260219190356.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_2_20260220133312.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_2_20260220133312.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_3_20260219193307.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_3_20260219193307.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_3_20260219193734.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_3_20260219193734.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_3_20260219193746.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_3_20260219193746.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_3_20260219194026.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_3_20260219194026.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_3_20260220135313.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_3_20260220135313.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/canhotos/canhoto_4_20260220140427.pdf",
+      "PackagePath": "staticwebassets/deliveries/canhotos/canhoto_4_20260220140427.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/1_12356_20260226185826.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/1_12356_20260226185826.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/1_20260220132856.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/1_20260220132856.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/1_3333_20260225104833.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/1_3333_20260225104833.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/2_20260219190336.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/2_20260219190336.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/2_20260220133143.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/2_20260220133143.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/3_20260219193219.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/3_20260219193219.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/3_20260220135255.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/3_20260220135255.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/4_20260220140411.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/4_20260220140411.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/5_20260220163526.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/5_20260220163526.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/5_55555_20260306112132.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/5_55555_20260306112132.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/6_20260220165636.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/6_20260220165636.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/7_1123_20260220171123.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/7_1123_20260220171123.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/7_20260220170803.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/7_20260220170803.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/7_20260220170807.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/7_20260220170807.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/invoices/7_4445_20260220171120.pdf",
+      "PackagePath": "staticwebassets/deliveries/invoices/7_4445_20260220171120.pdf"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/1_20260219175805.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/1_20260219175805.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/1_20260220132939.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/1_20260220132939.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/1_20260225183329.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/1_20260225183329.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/1_20260305172112.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/1_20260305172112.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/2_20260219190356.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/2_20260219190356.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/2_20260220133312.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/2_20260220133312.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/2_20260306112211.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/2_20260306112211.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/3_20260219193307.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/3_20260219193307.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/3_20260220135313.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/3_20260220135313.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/4_20260220140427.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/4_20260220140427.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/4_20260306112218.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/4_20260306112218.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/5_20260220163820.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/5_20260220163820.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/5_20260306112223.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/5_20260306112223.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/6_20260220165754.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/6_20260220165754.png"
+    },
+    {
+      "Id": "/home/thalyson/projetos/log/src/LogiMaster.API/wwwroot/deliveries/signatures/7_20260220171333.png",
+      "PackagePath": "staticwebassets/deliveries/signatures/7_20260220171333.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.LogiMaster.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.LogiMaster.API.props",
+      "PackagePath": "build\\LogiMaster.API.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.LogiMaster.API.props",
+      "PackagePath": "buildMultiTargeting\\LogiMaster.API.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.LogiMaster.API.props",
+      "PackagePath": "buildTransitive\\LogiMaster.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
