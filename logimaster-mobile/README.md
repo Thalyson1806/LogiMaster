@@ -6,9 +6,9 @@
 
 Aplicativo mobile do LogiMaster para equipe de expedição e motoristas. Permite conferência de romaneios, recebimento de matéria prima, inventário e rastreamento de entregas com GPS.
 
-![Login](../docs/screenshots/mobile-login.png)
-![Romaneios](../docs/screenshots/mobile-home.png)
-![Conferência](../docs/screenshots/mobile-conference.png)
+![Login](src/docs/screenshots/mobile-login.png)
+![Romaneios](src/docs/screenshots/mobile-home.png)
+![Conferência](src/docs/screenshots/mobile-conference.png)
 
 ---
 
