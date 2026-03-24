@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Animated,
   TouchableWithoutFeedback,
-  Image,
   ScrollView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -146,12 +145,10 @@ export default function Sidebar({ visible, onClose, navigation, currentScreen }:
       <Animated.View style={[styles.panel, { transform: [{ translateX }] }]}>
         {/* Logo / Header */}
         <View style={styles.header}>
-          <Image
-            source={require("../../assets/logo-formigari.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.company}>Metalúrgica Formigari</Text>
+          <View style={styles.logoPlaceholder}>
+            <Text style={styles.logoPlaceholderText}>LM</Text>
+          </View>
+          <Text style={styles.company}>Sua Empresa</Text>
           <Text style={styles.module}>Expedição · Logística</Text>
         </View>
 
@@ -247,7 +244,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "rgba(255,255,255,0.06)",
   },
-  logo: { width: 64, height: 56, marginBottom: 10 },
+  logoPlaceholder: {
+    width: 64, height: 64, borderRadius: 16, backgroundColor: "#1e3a8a",
+    alignItems: "center", justifyContent: "center", marginBottom: 10,
+  },
+  logoPlaceholderText: { fontSize: 26, fontWeight: "bold", color: "#60a5fa" },
   company: { fontSize: 15, fontWeight: "bold", color: "#f1f5f9", textAlign: "center" },
   module: { fontSize: 11, color: "#475569", marginTop: 3 },
   userSection: {

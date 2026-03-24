@@ -85,7 +85,7 @@ export default function HubPage() {
         <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <Factory className="w-7 h-7 text-white" />
         </div>
-        <h1 className="text-3xl font-bold text-white mb-2">Metalúrgica Formigari</h1>
+        <h1 className="text-3xl font-bold text-white mb-2">Sua Empresa</h1>
         <p className="text-slate-400">Selecione o módulo que deseja acessar</p>
       </div>
 

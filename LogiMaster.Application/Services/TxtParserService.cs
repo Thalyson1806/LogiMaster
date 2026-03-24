@@ -5,7 +5,7 @@ using LogiMaster.Application.Interfaces;
 namespace LogiMaster.Application.Services;
 
 /// <summary>
-/// Parser para arquivo TXT de Pedidos Pendentes - Metalúrgica Formigari
+/// Parser para arquivo TXT de Pedidos Pendentes
 /// </summary>
 public class TxtParserService : IFileParserService, ITxtParserService
 {

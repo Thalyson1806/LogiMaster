@@ -1,178 +1,112 @@
 # LogiMaster
 
-Sistema de gestão logística desenvolvido para controle de expedição, estoque, EDI, faturamento e rastreamento de entregas. Composto por uma API REST em .NET 8, um painel web em Next.js e um aplicativo mobile em React Native (Expo).
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![React Native](https://img.shields.io/badge/React%20Native-0.81-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat-square&logo=postgresql)
+![Expo](https://img.shields.io/badge/Expo-54-000020?style=flat-square&logo=expo)
+
+Sistema completo de gestão logística com frontend web, API REST e aplicativo mobile. Cobre o fluxo de expedição do início ao fim: desde a entrada de pedidos via EDI até a entrega ao cliente, com rastreamento em tempo real, geração de etiquetas, romaneios, faturamento e controle de armazém.
+
+![Mapa de Clientes](docs/screenshots/mapa.png)
+![Dashboard](docs/screenshots/dashboard.png)
 
 ---
 
-## Visão Geral
+## Arquitetura
 
-O LogiMaster centraliza os principais fluxos da operação logística:
+```
+logimaster/
+├── LogiMaster.API/            # ASP.NET Core Web API (.NET 8)
+├── LogiMaster.Application/    # Casos de uso, serviços, DTOs
+├── LogiMaster.Domain/         # Entidades, enums, interfaces
+├── LogiMaster.Infrastructure/ # EF Core, repositórios, serviços externos
+├── logimaster-web/            # Frontend Next.js (React + TypeScript + Tailwind)
+└── logimaster-mobile/         # App Expo (React Native + TypeScript)
+```
 
-- Criação e conferência de **romaneios** (packing lists) com geração de etiquetas
-- Processamento de arquivos **EDIFACT** (DELFOR, DELJIT, RND) com vinculação de produtos por cliente
-- Controle de **estoque** com endereçamento de warehouse por rua e localização
-- Gestão de **solicitações de faturamento** e emissão de NF
-- Visualização de **mapa de entregas** em tempo real
-- Gestão de **usuários** com permissões granulares por módulo (bitmask)
-- **Auditoria** de ações críticas no sistema
-- App mobile para **conferência de romaneios**, **recebimento de MP** e **inventário**
+A API segue Clean Architecture com separação em camadas Domain → Application → Infrastructure → API. Autenticação via JWT com permissões granulares por módulo usando bitmask.
 
 ---
 
-## Estrutura do Repositório
+## Módulos
 
-```
-src/
-├── LogiMaster.API/              # ASP.NET Core 8 — REST API + SignalR
-├── LogiMaster.Application/      # Casos de uso, DTOs, interfaces de serviço
-├── LogiMaster.Domain/           # Entidades, enums, interfaces de repositório
-├── LogiMaster.Infrastructure/   # EF Core, repositórios, migrações, serviços externos
-├── logimaster-web/              # Next.js 15 — Painel web
-└── logimaster-mobile/           # React Native + Expo — App mobile
-```
-
-### Arquitetura Backend (Clean Architecture)
-
-```
-API → Application → Domain ← Infrastructure
-```
-
-- **Domain**: entidades puras, regras de negócio, interfaces
-- **Application**: serviços, DTOs, orquestração dos casos de uso
-- **Infrastructure**: EF Core + PostgreSQL, repositórios, e-mail (MailKit), processamento EDIFACT, file watcher
-- **API**: controllers, autorização por módulo (bitmask), hubs SignalR, middleware JWT
+- **Romaneios / Expedição** — criação e acompanhamento de romaneios com fluxo de status (Pendente → Separação → Conferência → Faturado → Em Rota → Entregue)
+- **Faturamento** — solicitações de faturamento vinculadas a clientes e romaneios
+- **EDI** — processamento automático de arquivos EDIFACT (DELFOR, DELJIT, RND) com watcher de pasta
+- **Mapa** — visualização geográfica de clientes com geocodificação de endereços e rastreamento de motoristas em tempo real via SignalR
+- **Etiquetas** — geração de etiquetas de separação vinculadas ao conferente do romaneio
+- **Estoque / Armazém** — controle de localizações, ruas, movimentações e inventário
+- **Clientes / Produtos** — cadastro com vínculos de embalagem por cliente
+- **Importação** — planilhas Excel e arquivos EDI para carga em massa de dados
+- **Usuários e Auditoria** — permissões granulares por módulo (bitmask), log de auditoria
+- **E-mail** — envio e leitura de e-mails com suporte a EDI via inbox
 
 ---
 
-## Tecnologias
+## Stack
 
-### Backend
-| Tecnologia | Uso |
-|---|---|
-| .NET 8 / ASP.NET Core | API REST |
-| Entity Framework Core | ORM + migrations |
-| PostgreSQL | Banco de dados |
-| SignalR | Atualizações em tempo real |
-| JWT (System.IdentityModel.Tokens.Jwt) | Autenticação |
-| BCrypt.Net | Hash de senhas |
-| MailKit | Envio de e-mails |
-| EPPlus | Exportação Excel |
-| PdfPig | Leitura de PDFs de NF |
+**API**
+- .NET 8 / ASP.NET Core Web API
+- Entity Framework Core 8 + Npgsql (PostgreSQL)
+- JWT Bearer Authentication
+- SignalR (rastreamento em tempo real)
+- iText7 (geração de PDF)
+- EPPlus (leitura de planilhas Excel)
+- Swagger / OpenAPI
 
-### Web
-| Tecnologia | Uso |
-|---|---|
-| Next.js 15 (App Router) | Framework React |
-| TypeScript | Tipagem estática |
-| Tailwind CSS | Estilização |
-| Leaflet | Mapa de entregas |
-| JsBarcode | Geração de código de barras nas etiquetas |
+**Web**
+- Next.js 16 / React 19 / TypeScript 5
+- Tailwind CSS 4
+- React Leaflet + OpenStreetMap
+- SignalR client (@microsoft/signalr)
+- JsBarcode
 
-### Mobile
-| Tecnologia | Uso |
-|---|---|
-| React Native | Framework mobile |
-| Expo | Toolchain e build |
-| AsyncStorage | Persistência local |
-| Expo Camera | Leitura de QR Code / barcode |
+**Mobile**
+- Expo 54 / React Native 0.81 / TypeScript 5
+- Expo Location (rastreamento GPS do motorista)
+- Expo Camera + Barcode Scanner
+- AsyncStorage
+- React Navigation (Native Stack)
 
 ---
 
-## Módulos e Funcionalidades
-
-### Romaneios (Packing Lists)
-- Criação manual ou automática via EDI
-- Fluxo de status: `Pendente → Em Conferência → Concluído`
-- Conferência item a item no app mobile com registro do conferente
-- Geração de etiquetas com código de barras por item conferido
-- Upload e vinculação de PDFs de nota fiscal
-- Notificações em tempo real via SignalR ao mudar status
-
-### EDI
-- Importação automática de arquivos EDIFACT via pasta monitorada (file watcher)
-- Suporte aos formatos DELFOR, DELJIT e RND
-- Conversão para romaneios com vinculação por cliente/produto
-- Tela de partes faltantes (missing parts) por cliente
-- Histórico de arquivos importados
-
-### Estoque
-- Endereçamento físico por rua e localização (warehouse)
-- Movimentações de entrada e saída
-- Inventário via app mobile com leitura de código de barras
-
-### Faturamento
-- Solicitações de faturamento vinculadas a romaneios
-- Controle de status de NF por item
-
-### Mapa
-- Visualização georreferenciada de entregas em andamento
-- Integração com Leaflet
-
-### Usuários e Permissões
-- Roles: `Administrator`, `Shipping`, `LogisticsAnalyst`, `Invoicing`, `Driver`, `Viewer`
-- Permissões granulares por módulo usando bitmask (`AppModule` enum `[Flags]`)
-- Cada módulo possui bits independentes para Visualizar, Criar, Editar e Excluir
-- Administrator tem acesso irrestrito; demais usuários seguem o bitmask configurado
-
-### Auditoria
-- Log automático de ações críticas com usuário, data/hora e dados alterados
-
----
-
-## Sistema de Permissões
-
-As permissões são armazenadas como um inteiro (`long`) no banco e incluídas no JWT como claim numérica. O frontend decodifica o payload do JWT com `atob` para checar bits sem depender da serialização da API.
-
-```
-Bit 0-3   → Romaneios  (View | Create | Edit | Delete)
-Bit 4-7   → EDI
-Bit 8-11  → Faturamento
-Bit 12-15 → Clientes
-Bit 16-19 → Produtos/Embalagens
-Bit 20-23 → Estoque/Warehouse
-Bit 24    → Mapa
-Bit 28    → Email
-```
-
----
-
-## Configuração e Execução
-
-### Pré-requisitos
+## Pré-requisitos
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 18+](https://nodejs.org/)
-- [PostgreSQL 14+](https://www.postgresql.org/)
-- [Expo CLI](https://docs.expo.dev/get-started/installation/) (para o app mobile)
+- [Node.js 20+](https://nodejs.org)
+- [PostgreSQL 14+](https://www.postgresql.org)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
-### 1. Backend
+---
+
+## Como rodar
+
+### 1. Banco de dados
+
+Crie um banco PostgreSQL. As migrations são aplicadas automaticamente na primeira execução em modo Development.
+
+### 2. API
 
 ```bash
 cd LogiMaster.API
 ```
 
-Configure o `appsettings.json` (ou variáveis de ambiente):
+Edite `appsettings.json`:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=logimaster;Username=postgres;Password=sua_senha"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=logimaster;Username=postgres;Password=sua_senha"
   },
   "Jwt": {
     "Secret": "SuaChaveSecretaAqui",
     "Issuer": "LogiMaster",
     "Audience": "LogiMaster"
-  },
-  "EmailSettings": {
-    "SmtpHost": "smtp.seuservidor.com",
-    "SmtpPort": 587,
-    "Username": "seu@email.com",
-    "Password": "sua_senha"
   }
 }
 ```
-
-Execute:
 
 ```bash
 dotnet run
@@ -180,97 +114,93 @@ dotnet run
 # Swagger em http://localhost:5000/swagger
 ```
 
-As migrações são aplicadas automaticamente no ambiente de desenvolvimento.
-
-### 2. Web
+### 3. Frontend Web
 
 ```bash
 cd logimaster-web
 npm install
 ```
 
-Configure a URL da API em `src/lib/api.ts`:
+Crie `.env.local`:
 
-```ts
-const API_BASE = "http://localhost:5000/api";
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
-
-Execute:
 
 ```bash
 npm run dev
-# Disponível em http://localhost:3000
+# Acesse http://localhost:3000
 ```
 
-### 3. Mobile
+### 4. App Mobile
 
 ```bash
 cd logimaster-mobile
 npm install
 ```
 
-Configure a URL da API em `src/services/api.ts`:
+Crie `.env` (use o IP da máquina na rede local, não `localhost`):
 
-```ts
-export const BASE_URL = "http://SEU_IP_LOCAL:5000";
+```env
+EXPO_PUBLIC_API_URL=http://SEU_IP_LOCAL:5000
 ```
-
-Execute:
 
 ```bash
 npx expo start
 ```
 
-Escaneie o QR Code com o app **Expo Go** (Android/iOS) ou rode em emulador.
+Escaneie o QR code com o app Expo Go ou use um emulador.
 
 ---
 
-## Estrutura de Telas
+## Configuração do EDI
 
-### Web (`/logistica`)
-| Rota | Módulo |
-|---|---|
-| `/logistica` | Dashboard |
-| `/logistica/packing-lists` | Romaneios |
-| `/logistica/expedicao` | Expedição |
-| `/logistica/expedicao/etiquetas` | Etiquetas |
-| `/logistica/edi` | EDI |
-| `/logistica/edi/import` | Importação EDIFACT |
-| `/logistica/edi/vinculos` | Vínculos cliente/produto |
-| `/logistica/edi/history` | Histórico |
-| `/logistica/edi/missing-parts` | Partes faltantes |
-| `/logistica/estoque` | Estoque |
-| `/logistica/warehouse` | Endereçamento |
-| `/logistica/map` | Mapa |
-| `/logistica/faturamento` | Faturamento |
-| `/logistica/billing-requests` | Solicitações de faturamento |
-| `/logistica/usuarios` | Usuários e permissões |
-| `/logistica/auditoria` | Auditoria |
+O módulo EDI monitora uma pasta local a cada 30 segundos. Configure em `appsettings.json`:
 
-### Mobile
-| Tela | Descrição |
-|---|---|
-| Login | Autenticação |
-| Home (Romaneios) | Lista de romaneios pendentes |
-| Conference | Conferência item a item |
-| DeliveryList | Entregas do motorista |
-| Recebimento | Recebimento de matéria-prima |
-| Inventory | Inventário de estoque |
-| Scanner | Leitura de código de barras |
-| Signature | Assinatura digital de entrega |
+```json
+{
+  "EdiFileWatcher": {
+    "Enabled": true,
+    "WatchFolder": "C:\\EDI\\Entrada",
+    "ProcessedFolder": "C:\\EDI\\Processados",
+    "ErrorFolder": "C:\\EDI\\Erros",
+    "PollingIntervalSeconds": 30
+  }
+}
+```
+
+Estrutura de pastas:
+
+```
+EDI/
+├── Entrada/      # Arquivos EDIFACT novos são depositados aqui
+├── Processados/  # Movidos após processamento bem-sucedido
+└── Erros/        # Movidos em caso de falha no processamento
+```
+
+Formatos suportados: DELFOR, DELJIT, RND.
 
 ---
 
-## Variáveis de Ambiente Relevantes
+## Configuração de E-mail
 
-| Variável | Descrição |
-|---|---|
-| `ConnectionStrings__DefaultConnection` | String de conexão PostgreSQL |
-| `Jwt__Secret` | Chave secreta para assinatura do JWT |
-| `Jwt__Issuer` | Issuer do JWT |
-| `Jwt__Audience` | Audience do JWT |
-| `EmailSettings__SmtpHost` | Host SMTP para envio de e-mails |
-| `EdiFileWatcher__Path` | Pasta monitorada para importação automática de EDI |
+```json
+{
+  "EmailSettings": {
+    "SmtpHost": "smtp.seuservidor.com",
+    "SmtpPort": 587,
+    "SmtpUser": "email@suaempresa.com",
+    "SmtpPassword": "sua_senha",
+    "Pop3Host": "pop3.seuservidor.com",
+    "Pop3Port": 995,
+    "Pop3User": "email@suaempresa.com",
+    "Pop3Password": "sua_senha"
+  }
+}
+```
 
 ---
 
+## Licença
+
+Projeto de portfólio. Uso livre para estudo e referência.

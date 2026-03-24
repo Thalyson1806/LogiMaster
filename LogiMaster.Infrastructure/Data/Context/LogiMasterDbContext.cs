@@ -86,7 +86,7 @@ public class LogiMasterDbContext : DbContext
             {
                 Id = 1,
                 Name = "Administrator",
-                Email = "admin@formigari.com",
+                Email = "admin@suaempresa.com",
                 PasswordHash = "admin123",
                 Role = UserRole.Administrator,
                 Department = "T.I",

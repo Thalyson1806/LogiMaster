@@ -125,7 +125,7 @@ export default function HomeScreen({ navigation }: any) {
             <Ionicons name="menu-outline" size={28} color="#fff" />
           </TouchableOpacity>
           <View style={styles.headerTitles}>
-            <Text style={styles.title}>Metalúrgica Formigari</Text>
+            <Text style={styles.title}>Sua Empresa</Text>
             <Text style={styles.subtitle}>Expedição</Text>
           </View>
           <View style={{ width: 44 }} />

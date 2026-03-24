@@ -696,7 +696,7 @@ namespace LogiMaster.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Department", "Email", "IsActive", "LastAccessAt", "Name", "PasswordHash", "Role", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "T.I", "admin@formigari.com", true, null, "Administrator", "admin123", 0, null });
+                values: new object[] { 1, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "T.I", "admin@logimaster.com", true, null, "Administrator", "admin123", 0, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BillingRequestItems_BillingRequestId",

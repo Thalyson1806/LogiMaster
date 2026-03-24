@@ -1313,7 +1313,7 @@ namespace LogiMaster.Infrastructure.Migrations
                             Id = 1,
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Department = "T.I",
-                            Email = "admin@formigari.com",
+                            Email = "admin@logimaster.com",
                             IsActive = true,
                             Name = "Administrator",
                             PasswordHash = "admin123",

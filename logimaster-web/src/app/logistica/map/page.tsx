@@ -29,8 +29,6 @@ export default function MapPage() {
   const [filter, setFilter] = useState<"all" | "pending" | "geocoded">("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [mapReady, setMapReady] = useState(false);
-  const [showTraffic, setShowTraffic] = useState(false);
-  const [showIncidents, setShowIncidents] = useState(false);
   const [mapStyle, setMapStyle] = useState<"road" | "satellite" | "hybrid">("road");
 
   useEffect(() => {
@@ -60,14 +58,19 @@ export default function MapPage() {
     });
 
     // Carrega motoristas já em rota
-    fetch(`${BASE_URL}/api/packinglists/active-drivers`)
-      .then((r) => r.json())
-      .then((drivers: DriverLocation[]) => {
-        const map: Record<number, DriverLocation> = {};
-        drivers.forEach((d) => (map[d.packingListId] = d));
-        setDriverLocations(map);
+    try {
+      const token = JSON.parse(localStorage.getItem("logimaster_user") ?? "{}").token ?? "";
+      fetch(`${BASE_URL}/api/packinglists/active-drivers`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch(() => {});
+        .then((r) => r.ok ? r.json() : [])
+        .then((drivers: DriverLocation[]) => {
+          const map: Record<number, DriverLocation> = {};
+          drivers.forEach((d) => (map[d.packingListId] = d));
+          setDriverLocations(map);
+        })
+        .catch(() => {});
+    } catch {}
 
     return () => {
       offDriverLocationUpdated();
@@ -273,37 +276,7 @@ export default function MapPage() {
               </button>
             ))}
           </div>
-          {/* Camadas de tráfego */}
-          <div className="flex gap-2 border-l border-slate-200 pl-4">
-            <button
-              onClick={() => setShowTraffic((v) => !v)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                showTraffic ? "bg-red-500 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-current opacity-80" />
-              Tráfego
-            </button>
-            <button
-              onClick={() => setShowIncidents((v) => !v)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                showIncidents ? "bg-orange-500 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              ⚠ Incidentes
-            </button>
-          </div>
         </div>
-        {/* Legenda tráfego */}
-        {showTraffic && (
-          <div className="flex items-center gap-4 mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500">
-            <span className="font-medium">Fluxo:</span>
-            <span className="flex items-center gap-1"><span className="w-4 h-2 rounded bg-green-500 inline-block" /> Livre</span>
-            <span className="flex items-center gap-1"><span className="w-4 h-2 rounded bg-yellow-400 inline-block" /> Moderado</span>
-            <span className="flex items-center gap-1"><span className="w-4 h-2 rounded bg-orange-500 inline-block" /> Lento</span>
-            <span className="flex items-center gap-1"><span className="w-4 h-2 rounded bg-red-600 inline-block" /> Congestionado</span>
-          </div>
-        )}
       </div>
 
       {/* Mapa */}
@@ -312,38 +285,27 @@ export default function MapPage() {
           <MapContainer center={center} zoom={5} style={{ height: "100%", width: "100%" }}>
             {mapStyle === "road" && (
               <TileLayer
-                attribution='&copy; <a href="https://www.tomtom.com" target="_blank">TomTom</a>'
-                url={`https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}&tileSize=256&language=pt-BR`}
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
             )}
             {mapStyle === "satellite" && (
               <TileLayer
-                attribution='&copy; <a href="https://www.tomtom.com" target="_blank">TomTom</a>'
-                url={`https://api.tomtom.com/map/1/tile/sat/main/{z}/{x}/{y}.jpg?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}&tileSize=256`}
+                attribution='&copy; Esri'
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               />
             )}
             {mapStyle === "hybrid" && (
               <>
                 <TileLayer
-                  attribution='&copy; <a href="https://www.tomtom.com" target="_blank">TomTom</a>'
-                  url={`https://api.tomtom.com/map/1/tile/sat/main/{z}/{x}/{y}.jpg?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}&tileSize=256`}
+                  attribution='&copy; Esri'
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                 />
                 <TileLayer
-                  url={`https://api.tomtom.com/map/1/tile/hybrid/main/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}&tileSize=256&language=pt-BR`}
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  opacity={0.5}
                 />
               </>
-            )}
-            {showTraffic && (
-              <TileLayer
-                url={`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}`}
-                opacity={0.7}
-              />
-            )}
-            {showIncidents && (
-              <TileLayer
-                url={`https://api.tomtom.com/traffic/map/4/tile/incidents/s3/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}`}
-                opacity={0.9}
-              />
             )}
 
             {/* Marcadores de clientes */}

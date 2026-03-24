@@ -1,4 +1,4 @@
-// Cores padrão do app - Metalúrgica Formigari
+// Cores padrão do app
 export const colors = {
   // Primárias
   primary: "#1e3a8a",        // Azul escuro (header, botões principais)

@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LogiMaster Web
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss)
 
-First, run the development server:
+Painel web do LogiMaster. Interface de gestão logística completa com dashboard de KPIs, controle de romaneios, faturamento, EDI, mapa de clientes, armazém e administração de usuários.
+
+![Dashboard](../docs/screenshots/dashboard.png)
+
+---
+
+## Stack
+
+- Next.js 16 (App Router)
+- React 19 / TypeScript 5
+- Tailwind CSS 4
+- React Leaflet + OpenStreetMap (mapa)
+- @microsoft/signalr (atualizações em tempo real)
+- JsBarcode (geração de etiquetas)
+- Lucide React (ícones)
+
+---
+
+## Instalação e execução
+
+```bash
+npm install
+```
+
+Crie `.env.local` na raiz do projeto:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Acesse http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para build de produção:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Variáveis de ambiente
 
-To learn more about Next.js, take a look at the following resources:
+| Variável | Descrição | Exemplo |
+|---|---|---|
+| `NEXT_PUBLIC_API_URL` | URL base da API | `http://localhost:5000` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Telas e funcionalidades
 
-## Deploy on Vercel
+### Login
+- Autenticação com e-mail e senha
+- Token JWT armazenado em localStorage
+- Redirecionamento automático conforme role do usuário
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dashboard (`/logistica`)
+- KPIs: total de clientes, produtos, itens pendentes e valor total
+- Cards exibidos condicionalmente por permissão do usuário
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Romaneios (`/logistica/expedicao`)
+- Lista de romaneios com status em tempo real (SignalR)
+- Fluxo completo: Pendente → Separação → Conferência → Faturado → Em Rota → Entregue
+- Detalhamento por item com controle de conferência
+
+### Etiquetas (`/logistica/expedicao/etiquetas`)
+- Fila de etiquetas pendentes por conferente
+- Geração manual de etiquetas com código de barras
+- Marcação de etiquetas impressas
+
+### EDI (`/logistica/edi`)
+- Upload e processamento manual de arquivos EDIFACT
+- Histórico de arquivos processados
+- Gestão de clientes EDI e conversões
+- Vínculos produto/cliente para mapeamento automático
+
+### Faturamento (`/logistica/faturamento`)
+- Solicitações de faturamento por cliente
+- Resumo de packing lists com pendências
+
+### Mapa (`/logistica/map`)
+- Visualização geográfica dos clientes (OpenStreetMap)
+- Modos: Mapa, Satélite, Híbrido
+- Geocodificação de endereços (individual e em massa)
+- Marcadores de motoristas em rota em tempo real (SignalR)
+
+### Estoque / Armazém (`/logistica/estoque`, `/logistica/warehouse`)
+- Posição de estoque por produto
+- Movimentações de entrada e saída
+- Mapa visual do armazém com ruas e localizações
+
+### Clientes (`/logistica/clientes`)
+- Cadastro completo de clientes
+- Vínculos de embalagem por cliente/produto
+
+### Produtos (`/logistica/produtos`)
+- Cadastro de produtos e embalagens
+- Importação via Excel (catálogo, master, planilha genérica)
+
+### Usuários (`/logistica/usuarios`)
+- Gestão de usuários e roles
+- Modal de permissões com matriz por módulo (bitmask)
+- Roles disponíveis: Administrator, Shipping, LogisticsAnalyst, Invoicing, Driver, Viewer
+
+### Auditoria (`/logistica/auditoria`)
+- Log de todas as ações com filtros por usuário, data e tipo
+
+---
+
+## Sistema de permissões
+
+O frontend decodifica o JWT no localStorage para extrair o bitmask de permissões. A sidebar filtra os itens de menu conforme os bits ativos do usuário. O role `Administrator` tem acesso irrestrito.
+
+```ts
+const payload = JSON.parse(atob(token.split(".")[1]));
+const permBits = parseInt(payload["permissions"] ?? "0", 10);
+```

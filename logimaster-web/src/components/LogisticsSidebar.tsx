@@ -143,7 +143,7 @@ export default function LogisticsSidebar() {
           </div>
           <div>
             <h1 className="text-sm font-semibold text-white">Logística</h1>
-            <p className="text-[10px] text-slate-500">Metalúrgica Formigari</p>
+            <p className="text-[10px] text-slate-500">Sua Empresa</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,4 @@
-// Wi-Fi (desenvolvimento/interno): http://192.168.0.133:5000
-// 4G (externo): http://SEU_IP_PUBLICO:65420
-export const BASE_URL = "http://192.168.0.133:5000";
+export const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://192.168.0.133:5000";
 const API_URL = `${BASE_URL}/api`;
 
 

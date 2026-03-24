@@ -6,7 +6,7 @@ using UglyToad.PdfPig;
 namespace LogiMaster.Application.Services;
 
 /// <summary>
-/// Parser para arquivo PDF de Pedidos Pendentes - Metalúrgica Formigari
+/// Parser para arquivo PDF de Pedidos Pendentes
 /// </summary>
 public class PdfParserService : IFileParserService
 {

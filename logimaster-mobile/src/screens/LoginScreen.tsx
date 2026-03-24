@@ -9,7 +9,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Image,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BASE_URL } from "../services/api";
@@ -83,13 +82,9 @@ export default function LoginScreen({ navigation }: any) {
       <View style={styles.content}>
         <View style={styles.logoContainer}>
           <View style={styles.logoBox}>
-            <Image
-              source={require("../../assets/logo-formigari.png")}
-              style={styles.logo}
-              resizeMode="contain"
-            />
+            <Text style={styles.logoInitials}>LM</Text>
           </View>
-          <Text style={styles.title}>Metalúrgica Formigari</Text>
+          <Text style={styles.title}>Sua Empresa</Text>
           <Text style={styles.subtitle}>Expedição</Text>
         </View>
 
@@ -141,7 +136,7 @@ export default function LoginScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.footer}>© 2026 Metalúrgica Formigari</Text>
+        <Text style={styles.footer}>© 2026 Sua Empresa</Text>
       </View>
     </KeyboardAvoidingView>
   );
@@ -157,7 +152,7 @@ const styles = StyleSheet.create({
     shadowColor: "#3b82f6", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3, shadowRadius: 8, elevation: 8, overflow: "hidden",
   },
-  logo: { width: 100, height: 100 },
+  logoInitials: { fontSize: 42, fontWeight: "bold", color: "#60a5fa" },
   title: { fontSize: 24, fontWeight: "bold", color: "#fff", textAlign: "center" },
   subtitle: { fontSize: 16, color: "#60a5fa", marginTop: 4 },
   form: { gap: 20 },
