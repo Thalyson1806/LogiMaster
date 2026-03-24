@@ -78,12 +78,12 @@ export default function MapPage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [customersData, packingListsData] = await Promise.all([
+      const [customersRes, packingListsRes] = await Promise.allSettled([
         customerService.getAll(),
         packingListService.getAll(),
       ]);
-      setCustomers(customersData);
-      setPackingLists(packingListsData);
+      if (customersRes.status === "fulfilled") setCustomers(customersRes.value);
+      if (packingListsRes.status === "fulfilled") setPackingLists(packingListsRes.value);
     } catch (error) {
       console.error("Erro ao carregar dados:", error);
     } finally {

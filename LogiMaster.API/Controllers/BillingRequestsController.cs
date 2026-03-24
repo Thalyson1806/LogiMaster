@@ -95,8 +95,7 @@ public async Task<ActionResult<IEnumerable<CustomerPendingSummaryDto>>> GetPendi
                 new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true }) 
               ?? new List<CustomerToCreateDto>();
 
-        // TODO: Get actual user ID from auth
-        int? userId = null;
+        int? userId = int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out var uid) ? uid : null;
 
         using var stream = file.OpenReadStream();
         var result = await _billingRequestService.ImportWithConfirmationAsync(
@@ -115,8 +114,7 @@ public async Task<ActionResult<IEnumerable<CustomerPendingSummaryDto>>> GetPendi
         if (file is null || file.Length == 0)
             return BadRequest(new { message = "Arquivo é obrigatório" });
 
-        // TODO: Get actual user ID from auth
-        int? userId = null;
+        int? userId = int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out var uid2) ? uid2 : null;
 
         using var stream = file.OpenReadStream();
         var result = await _billingRequestService.ImportFromTxtAsync(stream, file.FileName, userId, cancellationToken);

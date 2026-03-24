@@ -29,3 +29,4 @@
 /home/thalyson/projetos/log/src/LogiMaster.Application/obj/Debug/net8.0/refint/LogiMaster.Application.dll
 /home/thalyson/projetos/log/src/LogiMaster.Application/obj/Debug/net8.0/LogiMaster.Application.pdb
 /home/thalyson/projetos/log/src/LogiMaster.Application/obj/Debug/net8.0/ref/LogiMaster.Application.dll
+/home/thalyson/projetos/log/src/LogiMaster.Application/obj/Debug/net8.0/LogiMaster.Application.sourcelink.json

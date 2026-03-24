@@ -248,9 +248,9 @@ export default function EtiquetasPage() {
     if (manualLoaded) return;
     setLoadingManual(true);
     try {
-      const [prods, custs] = await Promise.all([productService.getAll(), customerService.getAll()]);
-      setProducts(prods);
-      setCustomers(custs);
+      const [prodsRes, custsRes] = await Promise.allSettled([productService.getAll(), customerService.getAll()]);
+      if (prodsRes.status === "fulfilled") setProducts(prodsRes.value);
+      if (custsRes.status === "fulfilled") setCustomers(custsRes.value);
       setManualLoaded(true);
     } catch {}
     finally { setLoadingManual(false); }

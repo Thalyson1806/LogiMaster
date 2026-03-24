@@ -73,6 +73,15 @@ public class StockService : IStockService
         return movements.Select(ToDto);
     }
 
+    public async Task<bool> DeleteMovementAsync(int id, CancellationToken ct = default)
+    {
+        var movement = await _uow.StockMovements.GetByIdAsync(id, ct);
+        if (movement is null) return false;
+        movement.Deactivate();
+        await _uow.SaveChangesAsync(ct);
+        return true;
+    }
+
     private static StockMovementType ParseType(string type) => type.ToLower() switch
     {
         "entry"      => StockMovementType.Entry,

@@ -1,0 +1,32 @@
+# Claude Code
+.claude/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.DotSettings.user
+appsettings.Development.json
+
+# Node / Next.js / Expo
+node_modules/
+.next/
+out/
+.expo/
+dist/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db

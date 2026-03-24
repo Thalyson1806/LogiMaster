@@ -50,12 +50,12 @@ export default function EdiImportPage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [filesData, customersData] = await Promise.all([
+      const [filesRes, customersRes] = await Promise.allSettled([
         edifactService.getAll(),
         customerService.getAll(),
       ]);
-      setFiles(filesData);
-      setCustomers(customersData);
+      if (filesRes.status === "fulfilled") setFiles(filesRes.value);
+      if (customersRes.status === "fulfilled") setCustomers(customersRes.value);
     } catch (err) {
       console.error(err);
     } finally {

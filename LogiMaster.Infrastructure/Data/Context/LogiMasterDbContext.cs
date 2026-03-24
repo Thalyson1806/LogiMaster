@@ -11,6 +11,7 @@ public class LogiMasterDbContext : DbContext
     {
     }
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
+    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<CustomerProduct> CustomerProducts => Set<CustomerProduct>();

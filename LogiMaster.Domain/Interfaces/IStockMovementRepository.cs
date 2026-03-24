@@ -10,4 +10,5 @@ public interface IStockMovementRepository
     Task<Dictionary<int, decimal>> GetCurrentStockAllProductsAsync(CancellationToken ct = default);
     Task AddAsync(StockMovement movement, CancellationToken ct = default);
     Task AddRangeAsync(IEnumerable<StockMovement> movements, CancellationToken ct = default);
+    Task<StockMovement?> GetByIdAsync(int id, CancellationToken ct = default);
 }

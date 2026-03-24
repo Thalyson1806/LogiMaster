@@ -50,6 +50,11 @@ public class StockMovementRepository : IStockMovementRepository
             .ToDictionaryAsync(x => x.ProductId, x => x.Stock, ct);
     }
 
+    public async Task<StockMovement?> GetByIdAsync(int id, CancellationToken ct = default)
+    {
+        return await _context.StockMovements.FindAsync([id], ct);
+    }
+
     public async Task AddAsync(StockMovement movement, CancellationToken ct = default)
     {
         await _context.StockMovements.AddAsync(movement, ct);

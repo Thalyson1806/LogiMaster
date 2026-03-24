@@ -61,18 +61,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins(
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://localhost:8081",
-        "http://192.168.0.133:3001",
-        "http://192.168.0.133:5000",
-        "http://192.168.15.131:8081",
-        "http://26.27.171.4:3000",
-        "http://26.27.171.4:3001",
-        "http://187.50.56.66:3000",
-        "http://187.50.56.66:5000"
-    )
+        policy.SetIsOriginAllowed(_ => true)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -91,9 +80,11 @@ var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "LogiMaster";
 builder.Services.AddSingleton<IAuthorizationHandler, ModuleAuthorizationHandler>();
 builder.Services.AddAuthorization(options =>
 {
+    // Registra apenas valores de bit único (potências de 2)
     foreach (AppModule module in Enum.GetValues<AppModule>())
     {
-        if (module == AppModule.None || module == AppModule.All) continue;
+        var v = (long)module;
+        if (v == 0 || (v & (v - 1)) != 0) continue; // pula None e compostos
         options.AddPolicy($"Module.{module}", policy =>
             policy.Requirements.Add(new ModuleRequirement(module)));
     }
@@ -153,6 +144,9 @@ builder.Services.AddScoped<IMissingPartsService, MissingPartsService>();
 
 //stock
 builder.Services.AddScoped<IStockService, StockService>();
+
+// auditoria
+builder.Services.AddScoped<IAuditService, AuditService>();
 
 var app = builder.Build();
 

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NWb6J7l1IBE=",
+  "dgSpecHash": "DkStHu46zpY=",
   "success": true,
   "projectFilePath": "/home/thalyson/projetos/log/src/LogiMaster.Application/LogiMaster.Application.csproj",
   "expectedPackageFiles": [
+    "/home/thalyson/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/thalyson/.nuget/packages/bouncycastle.cryptography/2.6.1/bouncycastle.cryptography.2.6.1.nupkg.sha512",
     "/home/thalyson/.nuget/packages/epplus/8.4.2/epplus.8.4.2.nupkg.sha512",
     "/home/thalyson/.nuget/packages/epplus.interfaces/8.4.0/epplus.interfaces.8.4.0.nupkg.sha512",

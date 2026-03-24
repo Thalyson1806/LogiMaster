@@ -27,12 +27,26 @@ public class AuthService : IAuthService
         if (user == null)
             return null;
 
-        // Verifica senha (por enquanto simples, depois implementar hash)
-        if (user.PasswordHash != request.Password)
+        // Verifica senha: BCrypt para senhas novas, fallback texto puro para senhas legadas
+        bool passwordValid;
+        if (user.PasswordHash.StartsWith("$2"))
+        {
+            passwordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
+        }
+        else
+        {
+            passwordValid = user.PasswordHash == request.Password;
+            if (passwordValid)
+                user.ChangePassword(BCrypt.Net.BCrypt.HashPassword(request.Password));
+        }
+
+        if (!passwordValid)
             return null;
 
-        // Registra o acesso
+        // Registra o acesso e log de auditoria
         user.RecordAccess();
+        var auditLog = new Domain.Entities.AuditLog(user.Id, user.Name, "Login", "User", user.Id);
+        await _unitOfWork.AuditLogs.AddAsync(auditLog, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         // Gera o token JWT
@@ -66,7 +80,8 @@ public class AuthService : IAuthService
             user.Department,
             user.LastAccessAt,
             user.IsActive,
-            user.CreatedAt
+            user.CreatedAt,
+            user.Permissions
         );
     }
 

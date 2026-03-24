@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+using LogiMaster.API.Hubs;
 using LogiMaster.Application.DTOs;
 using LogiMaster.Application.Interfaces;
 using LogiMaster.Domain.Interfaces;
-
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LogiMaster.API.Controllers;
 
@@ -19,6 +19,13 @@ public class MapController : ControllerBase
     {
         _unitOfWork = unitOfWork;
         _geocodingService = geocodingService;
+    }
+
+    // Exposto aqui para que usuários com permissão de Mapa possam acessar sem precisar de Romaneios
+    [HttpGet("/api/packinglists/active-drivers")]
+    public ActionResult<IEnumerable<DriverLocationDto>> GetActiveDrivers()
+    {
+        return Ok(PackingListHub.ActiveDrivers.Values);
     }
 
     [HttpGet("customers")]

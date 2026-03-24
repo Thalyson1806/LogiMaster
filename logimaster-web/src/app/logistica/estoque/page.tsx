@@ -27,6 +27,7 @@ export default function EstoquePage() {
 
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [displayQuantity, setDisplayQuantity] = useState("");
 
   useEffect(() => {
     stockService.getSummary().then((res) => {
@@ -58,6 +59,7 @@ export default function EstoquePage() {
   async function openMovements(item: StockSummary) {
     setSelectedProduct(item);
     setForm({ productId: item.productId, type: "Entry", quantity: 0, notes: "" });
+    setDisplayQuantity("");
 
     const movs = await stockService.getMovements(item.productId);
     setMovements(movs);
@@ -82,11 +84,22 @@ export default function EstoquePage() {
     setSelectedProduct(res.items.find((i) => i.productId === form.productId) ?? null);
 
     setForm((f) => ({ ...f, quantity: 0, notes: "" }));
+    setDisplayQuantity("");
 
     setSuccessMsg("Movimento registrado!");
     setTimeout(() => setSuccessMsg(""), 3000);
 
     setSaving(false);
+  }
+
+  async function handleDeleteMovement(id: number) {
+    if (!confirm("Excluir este movimento? O estoque será recalculado.")) return;
+    await stockService.deleteMovement(id);
+    const movs = await stockService.getMovements(form.productId);
+    setMovements(movs);
+    const res = await stockService.getSummary();
+    setItems(res.items);
+    setSelectedProduct(res.items.find((i) => i.productId === form.productId) ?? null);
   }
 
   const typeLabel: Record<string, string> = {
@@ -242,10 +255,161 @@ export default function EstoquePage() {
         </>
       )}
 
-      {/* TAB MOVIMENTO (igual ao seu original) */}
+      {/* TAB MOVIMENTO */}
       {tab === "movement" && selectedProduct && (
-        <div className="text-sm text-slate-600">
-          {/* Mantive igual para não alterar sua lógica */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Formulário de movimento */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl border border-slate-200 p-5">
+              <h2 className="text-sm font-semibold text-slate-700 mb-4">
+                Registrar Movimento
+              </h2>
+
+              <div className="mb-4 p-3 bg-slate-50 rounded-lg text-xs text-slate-600">
+                <div className="font-semibold text-slate-800">{selectedProduct.productReference}</div>
+                <div className="mt-0.5">{selectedProduct.productDescription}</div>
+                <div className="mt-2 text-base font-bold text-blue-600">
+                  Estoque atual: {selectedProduct.currentStock.toLocaleString("pt-BR")}
+                </div>
+              </div>
+
+              {successMsg && (
+                <div className="mb-4 p-3 bg-green-50 text-green-700 text-sm rounded-lg">
+                  {successMsg}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">
+                    Tipo
+                  </label>
+                  <select
+                    value={form.type}
+                    onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}
+                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
+                  >
+                    <option value="Entry">Entrada</option>
+                    <option value="Exit">Saída</option>
+                    <option value="Adjustment">Ajuste</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">
+                    Quantidade
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    value={displayQuantity}
+                    onChange={(e) => {
+                      // permite dígitos e uma vírgula (separador decimal pt-BR)
+                      let raw = e.target.value.replace(/[^\d,]/g, "");
+                      const firstComma = raw.indexOf(",");
+                      if (firstComma !== -1) {
+                        raw = raw.slice(0, firstComma + 1) + raw.slice(firstComma + 1).replace(/,/g, "");
+                      }
+                      const num = raw === "" || raw === "," ? 0 : parseFloat(raw.replace(",", "."));
+                      setDisplayQuantity(raw);
+                      setForm((f) => ({ ...f, quantity: isNaN(num) ? 0 : num }));
+                    }}
+                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
+                    placeholder="0,00"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">
+                    Observação
+                  </label>
+                  <textarea
+                    value={form.notes}
+                    onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none"
+                    rows={3}
+                    placeholder="Opcional..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={saving || form.quantity === 0}
+                  className="w-full bg-blue-600 text-white text-sm font-medium py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                >
+                  {saving ? "Salvando..." : "Registrar"}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Histórico de movimentos */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+              <div className="px-5 py-4 border-b border-slate-100">
+                <h2 className="text-sm font-semibold text-slate-700">Histórico de Movimentos</h2>
+              </div>
+
+              {movements.length === 0 ? (
+                <div className="py-12 text-center text-slate-400 text-sm">
+                  Nenhum movimento registrado
+                </div>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 text-slate-600 text-xs uppercase">
+                    <tr>
+                      <th className="px-4 py-3 text-left">Data</th>
+                      <th className="px-4 py-3 text-left">Tipo</th>
+                      <th className="px-4 py-3 text-right">Qtd</th>
+                      <th className="px-4 py-3 text-left">Por</th>
+                      <th className="px-4 py-3 text-left">Observação</th>
+                      <th className="px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {movements.map((m) => (
+                      <tr key={m.id} className="hover:bg-slate-50">
+                        <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
+                          {new Date(m.createdAt).toLocaleString("pt-BR", {
+                            day: "2-digit", month: "2-digit", year: "2-digit",
+                            hour: "2-digit", minute: "2-digit",
+                          })}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${typeBadge[m.type] ?? "bg-slate-100 text-slate-600"}`}>
+                            {typeLabel[m.type] ?? m.type}
+                          </span>
+                        </td>
+                        <td className={`px-4 py-3 text-right font-semibold ${
+                          m.quantity > 0 ? "text-green-600" :
+                          m.quantity < 0 ? "text-red-500" :
+                          "text-yellow-600"
+                        }`}>
+                          {m.quantity > 0 ? "+" : ""}{m.quantity.toLocaleString("pt-BR")}
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 text-xs">
+                          {m.createdByUserName ?? "—"}
+                        </td>
+                        <td className="px-4 py-3 text-slate-500 max-w-xs truncate">
+                          {m.notes || "—"}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <button
+                            onClick={() => handleDeleteMovement(m.id)}
+                            className="text-xs text-red-400 hover:text-red-600"
+                            title="Excluir movimento"
+                          >
+                            Excluir
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

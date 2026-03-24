@@ -61,12 +61,12 @@ export default function PackingListsPage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [lists, summary] = await Promise.all([
+      const [listsRes, summaryRes] = await Promise.allSettled([
         packingListService.getAll(),
         billingRequestService.getPendingSummary(),
       ]);
-      setPackingLists(lists as PackingListSummary[]);
-      setPendingSummary(summary);
+      if (listsRes.status === "fulfilled") setPackingLists(listsRes.value as PackingListSummary[]);
+      if (summaryRes.status === "fulfilled") setPendingSummary(summaryRes.value);
     } catch (err) {
       console.error(err);
     } finally {

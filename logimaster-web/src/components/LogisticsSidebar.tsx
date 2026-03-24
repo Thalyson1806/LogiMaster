@@ -24,8 +24,9 @@ import {
   BarChart3,
   LogOut,
   UserCog,
+  ShieldCheck,
 } from "lucide-react";
-import { can, Role, Resource } from "@/lib/permissions";
+import { canBit, Role, Resource } from "@/lib/permissions";
 
 type ChildItem = { name: string; href: string; icon: React.ElementType; resource?: Resource };
 type MenuItem = { name: string; href: string; icon: React.ElementType; children?: ChildItem[]; resource?: Resource };
@@ -78,7 +79,8 @@ const menuGroups: MenuGroup[] = [
   {
     label: "Administração",
     items: [
-      { name: "Usuários", href: "/logistica/usuarios", icon: UserCog, resource: "usuarios" },
+      { name: "Usuários",   href: "/logistica/usuarios",  icon: UserCog,    resource: "usuarios" },
+      { name: "Auditoria",  href: "/logistica/auditoria", icon: ShieldCheck, resource: "usuarios" },
     ],
   },
 ];
@@ -90,6 +92,7 @@ export default function LogisticsSidebar() {
   const [userName, setUserName] = useState("Usuário");
   const [userRole, setUserRole] = useState("Operador");
   const [role, setRole] = useState<Role>("Viewer");
+  const [permBits, setPermBits] = useState(0);
 
   useEffect(() => {
     try {
@@ -99,6 +102,14 @@ export default function LogisticsSidebar() {
         if (u.name) setUserName(u.name);
         if (u.roleName) setUserRole(u.roleName);
         if (u.role) setRole(u.role as Role);
+        // Lê as permissões do JWT (sempre gravado como número no claim)
+        if (u.token) {
+          try {
+            const payload = JSON.parse(atob(u.token.split(".")[1]));
+            const perms = payload["permissions"];
+            if (perms !== undefined) setPermBits(parseInt(perms, 10));
+          } catch {}
+        }
       }
     } catch {}
   }, []);
@@ -120,7 +131,7 @@ export default function LogisticsSidebar() {
 
   function canView(resource?: Resource) {
     if (!resource) return true;
-    return can(role, resource, "view");
+    return canBit(role, permBits, resource);
   }
 
   return (

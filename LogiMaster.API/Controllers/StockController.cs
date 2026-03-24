@@ -35,15 +35,23 @@ public class StockController : ControllerBase
     [HttpPost("movement")]
     public async Task<IActionResult> RegisterMovement([FromBody] CreateStockMovementDto dto, CancellationToken ct)
     {
-        // userId = 1 por enquanto (sem auth middleware configurado nao esquecer de alterar quando for criar novos usuarios em painel)
-        var result = await _service.RegisterMovementAsync(dto, userId: 1, ct);
+        var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
+        var result = await _service.RegisterMovementAsync(dto, userId, ct);
         return Ok(result);
+    }
+
+    [HttpDelete("movement/{id:int}")]
+    public async Task<IActionResult> DeleteMovement(int id, CancellationToken ct)
+    {
+        var deleted = await _service.DeleteMovementAsync(id, ct);
+        return deleted ? NoContent() : NotFound();
     }
 
     [HttpPost("bulk")]
     public async Task<IActionResult> RegisterBulk([FromBody] BulkCreateStockMovementDto dto, CancellationToken ct)
     {
-        var result = await _service.RegisterBulkMovementsAsync(dto, userId: 1, ct);
+        var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
+        var result = await _service.RegisterBulkMovementsAsync(dto, userId, ct);
         return Ok(result);
     }
 }

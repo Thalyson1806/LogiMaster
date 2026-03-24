@@ -14,11 +14,18 @@ import { Ionicons } from "@expo/vector-icons";
 
 const SIDEBAR_WIDTH = 280;
 
+// AppModule bitmask bits (mirrors AppModule.cs)
+const BITS = {
+  RomaneiosView: 1 << 0,
+  EstoqueView: 1 << 20,
+};
+
 type MenuItem = {
   key: string;
   label: string;
   icon: keyof typeof Ionicons.glyphMap;
-  roles: string[] | null;
+  permBit?: number;       // required permission bit (undefined = always visible)
+  driverOnly?: boolean;   // only visible to Driver role
 };
 
 const MENU: MenuItem[] = [
@@ -26,25 +33,25 @@ const MENU: MenuItem[] = [
     key: "Home",
     label: "Romaneios",
     icon: "document-text-outline",
-    roles: ["Shipping", "Administrator", "LogisticsAnalyst", "Invoicing", "Viewer"],
+    permBit: BITS.RomaneiosView,
   },
   {
     key: "DeliveryList",
     label: "Minhas Entregas",
     icon: "car-outline",
-    roles: null,
+    driverOnly: true,
   },
   {
     key: "Recebimento",
     label: "Recebimento MP",
     icon: "arrow-down-circle-outline",
-    roles: ["Shipping", "Administrator", "LogisticsAnalyst"],
+    permBit: BITS.EstoqueView,
   },
   {
     key: "Inventory",
     label: "Inventário",
     icon: "cube-outline",
-    roles: ["Shipping", "Administrator"],
+    permBit: BITS.EstoqueView,
   },
 ];
 
@@ -93,9 +100,16 @@ export default function Sidebar({ visible, onClose, navigation, currentScreen }:
 
   if (!rendered) return null;
 
-  const visibleMenu = MENU.filter(
-    (item) => !item.roles || item.roles.includes(user?.role ?? "")
-  );
+  const isAdmin = user?.role === "Administrator";
+  const isDriver = user?.role === "Driver";
+  const permBits: number = user?.permissions ?? 0;
+
+  const visibleMenu = MENU.filter((item) => {
+    if (item.driverOnly) return isDriver;
+    if (isAdmin) return true;
+    if (item.permBit === undefined) return true;
+    return (permBits & item.permBit) !== 0;
+  });
 
   const initials = user?.name
     ? user.name

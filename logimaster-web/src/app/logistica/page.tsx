@@ -6,7 +6,6 @@ import { customerService, productService, billingRequestService } from "@/lib/se
 import {
   Users,
   Package,
-  FileText,
   Truck,
   TrendingUp,
   Upload,
@@ -42,20 +41,50 @@ export default function LogisticsDashboard() {
     loadStats();
   }, []);
 
+  function getUserPerms(): { role: string; bits: number } {
+    try {
+      const s = localStorage.getItem("logimaster_user");
+      if (s) {
+        const u = JSON.parse(s);
+        let bits = 0;
+        if (u.token) {
+          const payload = JSON.parse(atob(u.token.split(".")[1]));
+          bits = parseInt(payload["permissions"] ?? "0", 10);
+        }
+        return { role: u.role ?? "", bits };
+      }
+    } catch {}
+    return { role: "", bits: 0 };
+  }
+
+  function hasBit(bits: number, bit: number, role: string) {
+    return role === "Administrator" || (bits & bit) !== 0;
+  }
+
   async function loadStats() {
     try {
       setLoading(true);
-      const [customers, products, summary] = await Promise.all([
-        customerService.getAll(),
-        productService.getAll(),
-        billingRequestService.getPendingSummary(),
+      const { role, bits } = getUserPerms();
+
+      const canClientes    = hasBit(bits, 1 << 12, role);
+      const canProdutos    = hasBit(bits, 1 << 16, role);
+      const canFaturamento = hasBit(bits, 1 << 8,  role);
+
+      const [customersRes, productsRes, summaryRes] = await Promise.allSettled([
+        canClientes    ? customerService.getAll()                    : Promise.resolve([]),
+        canProdutos    ? productService.getAll()                     : Promise.resolve([]),
+        canFaturamento ? billingRequestService.getPendingSummary()   : Promise.resolve([]),
       ]);
 
-      const sortedSummary = summary.sort((a, b) => b.totalPendingValue - a.totalPendingValue);
+      const customers = customersRes.status === "fulfilled" ? customersRes.value : [];
+      const products  = productsRes.status  === "fulfilled" ? productsRes.value  : [];
+      const summary   = summaryRes.status   === "fulfilled" ? summaryRes.value   : [];
+
+      const sortedSummary = [...summary].sort((a, b) => b.totalPendingValue - a.totalPendingValue);
       setPendingSummary(sortedSummary);
 
       const totalPending = summary.reduce((sum, item) => sum + item.totalPendingValue, 0);
-      const totalItems = summary.reduce((sum, item) => sum + item.totalItems, 0);
+      const totalItems   = summary.reduce((sum, item) => sum + item.totalItems, 0);
 
       setStats({
         customers: customers.length,

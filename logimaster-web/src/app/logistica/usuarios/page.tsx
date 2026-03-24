@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { UserCog, Plus, Pencil, Trash2, KeyRound, CheckCircle, XCircle, X, Search } from "lucide-react";
+import { UserCog, Plus, Pencil, Trash2, KeyRound, CheckCircle, XCircle, X, Search, ShieldCheck } from "lucide-react";
 import { BASE_URL } from "@/lib/api";
 
 type UserRole = "Administrator" | "LogisticsAnalyst" | "Shipping" | "Invoicing" | "Viewer" | "Driver";
@@ -17,15 +17,34 @@ interface User {
   isActive: boolean;
   lastAccessAt: string | null;
   createdAt: string;
+  permissions: number;
 }
 
 const ROLE_OPTIONS: { value: UserRole; label: string }[] = [
-  { value: "Administrator",   label: "Administrador"       },
-  { value: "LogisticsAnalyst",label: "Analista de Logística" },
-  { value: "Shipping",        label: "Expedição"           },
-  { value: "Invoicing",       label: "Faturamento"         },
-  { value: "Viewer",          label: "Visualizador"        },
-  { value: "Driver",          label: "Motorista"           },
+  { value: "Administrator",    label: "Administrador"        },
+  { value: "LogisticsAnalyst", label: "Analista de Logística" },
+  { value: "Shipping",         label: "Expedição"            },
+  { value: "Invoicing",        label: "Faturamento"          },
+  { value: "Viewer",           label: "Visualizador"         },
+  { value: "Driver",           label: "Motorista"            },
+];
+
+// Mirrors AppModule.cs exactly
+const MODULES: {
+  label: string;
+  view: number;
+  create?: number;
+  edit?: number;
+  del?: number;
+}[] = [
+  { label: "Romaneios",   view: 1 << 0,  create: 1 << 1,  edit: 1 << 2,  del: 1 << 3  },
+  { label: "EDI",         view: 1 << 4,  create: 1 << 5,  edit: 1 << 6,  del: 1 << 7  },
+  { label: "Faturamento", view: 1 << 8,  create: 1 << 9,  edit: 1 << 10, del: 1 << 11 },
+  { label: "Clientes",    view: 1 << 12, create: 1 << 13, edit: 1 << 14, del: 1 << 15 },
+  { label: "Produtos",    view: 1 << 16, create: 1 << 17, edit: 1 << 18, del: 1 << 19 },
+  { label: "Estoque",     view: 1 << 20, create: 1 << 21,                del: 1 << 22 },
+  { label: "Mapa",        view: 1 << 24 },
+  { label: "Email",       view: 1 << 28 },
 ];
 
 function getAuthHeader() {
@@ -68,6 +87,11 @@ export default function UsuariosPage() {
   const [newPassword, setNewPassword] = useState("");
   const [savingPw, setSavingPw] = useState(false);
 
+  // Permissions modal
+  const [permModal, setPermModal] = useState<{ id: number; name: string; role: UserRole } | null>(null);
+  const [permBits, setPermBits] = useState(0);
+  const [savingPerm, setSavingPerm] = useState(false);
+
   async function load() {
     setLoading(true);
     try {
@@ -100,6 +124,11 @@ export default function UsuariosPage() {
     setForm({ name: u.name, email: u.email, password: "", role: u.role, employeeId: u.employeeId ?? "", department: u.department ?? "" });
     setError("");
     setShowForm(true);
+  }
+
+  function openPermissions(u: User) {
+    setPermModal({ id: u.id, name: u.name, role: u.role });
+    setPermBits(u.permissions ?? 0);
   }
 
   async function handleSave() {
@@ -158,6 +187,50 @@ export default function UsuariosPage() {
     } finally {
       setSavingPw(false);
     }
+  }
+
+  async function handleSavePermissions() {
+    if (!permModal) return;
+    setSavingPerm(true);
+    try {
+      const updated = await apiUsers(`/${permModal.id}/permissions`, "PUT", { permissions: permBits });
+      setUsers(prev => prev.map(u => u.id === permModal.id ? updated : u));
+      setPermModal(null);
+    } catch (e: any) {
+      alert("Erro: " + e.message);
+    } finally {
+      setSavingPerm(false);
+    }
+  }
+
+  function toggleBit(bit: number) {
+    setPermBits(prev => prev ^ bit);
+  }
+
+  function hasBit(bit: number) {
+    return (permBits & bit) !== 0;
+  }
+
+  function toggleModule(mod: typeof MODULES[number]) {
+    const bits = [mod.view, mod.create, mod.edit, mod.del].filter((b): b is number => b !== undefined);
+    const allSet = bits.every(b => hasBit(b));
+    if (allSet) {
+      setPermBits(prev => bits.reduce((acc, b) => acc & ~b, prev));
+    } else {
+      setPermBits(prev => bits.reduce((acc, b) => acc | b, prev));
+    }
+  }
+
+  function markAll() {
+    const allBits = MODULES.reduce((acc, m) => {
+      const bits = [m.view, m.create, m.edit, m.del].filter((b): b is number => b !== undefined);
+      return bits.reduce((a, b) => a | b, acc);
+    }, 0);
+    setPermBits(allBits);
+  }
+
+  function clearAll() {
+    setPermBits(0);
   }
 
   if (loading) {
@@ -254,6 +327,13 @@ export default function UsuariosPage() {
                     {u.lastAccessAt ? new Date(u.lastAccessAt).toLocaleString("pt-BR") : "Nunca"}
                   </td>
                   <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => openPermissions(u)}
+                      title="Permissões"
+                      className={`p-2 rounded-lg transition-colors ${u.permissions ? "text-emerald-600 hover:bg-emerald-50" : "text-slate-400 hover:bg-slate-100"}`}
+                    >
+                      <ShieldCheck className="w-4 h-4" />
+                    </button>
                     <button onClick={() => openEdit(u)} title="Editar" className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                       <Pencil className="w-4 h-4" />
                     </button>
@@ -414,6 +494,138 @@ export default function UsuariosPage() {
                 className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:bg-amber-300 text-white py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 {savingPw ? "Salvando..." : "Redefinir senha"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal permissões */}
+      {permModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-lg shadow-xl flex flex-col max-h-[90vh]">
+            <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div>
+                  <h2 className="font-semibold text-slate-800">Permissões de Acesso</h2>
+                  <p className="text-xs text-slate-500">{permModal.name}</p>
+                </div>
+              </div>
+              <button onClick={() => setPermModal(null)} className="p-1 hover:bg-slate-100 rounded">
+                <X className="w-5 h-5 text-slate-500" />
+              </button>
+            </div>
+
+            <div className="p-5 overflow-y-auto flex-1">
+              {permModal.role === "Administrator" && (
+                <div className="mb-4 px-3 py-2 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-700">
+                  Administradores têm acesso total independente das permissões abaixo.
+                </div>
+              )}
+
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={markAll}
+                  className="text-xs border border-slate-300 text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors"
+                >
+                  Marcar todos
+                </button>
+                <button
+                  onClick={clearAll}
+                  className="text-xs border border-slate-300 text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors"
+                >
+                  Limpar todos
+                </button>
+              </div>
+
+              <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50">
+                    <tr>
+                      <th className="text-left px-3 py-2 text-xs font-semibold text-slate-600 w-32">Módulo</th>
+                      <th className="text-center px-2 py-2 text-xs font-semibold text-slate-600">Visualizar</th>
+                      <th className="text-center px-2 py-2 text-xs font-semibold text-slate-600">Criar</th>
+                      <th className="text-center px-2 py-2 text-xs font-semibold text-slate-600">Editar</th>
+                      <th className="text-center px-2 py-2 text-xs font-semibold text-slate-600">Excluir</th>
+                      <th className="text-center px-2 py-2 text-xs font-semibold text-slate-600">Todos</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {MODULES.map((mod) => {
+                      const bits = [mod.view, mod.create, mod.edit, mod.del].filter((b): b is number => b !== undefined);
+                      const allSet = bits.every(b => hasBit(b));
+                      const someSet = bits.some(b => hasBit(b));
+                      return (
+                        <tr key={mod.label} className="hover:bg-slate-50">
+                          <td className="px-3 py-2.5 text-slate-700 font-medium text-xs">{mod.label}</td>
+                          <td className="text-center px-2 py-2.5">
+                            <input
+                              type="checkbox"
+                              checked={hasBit(mod.view)}
+                              onChange={() => toggleBit(mod.view)}
+                              className="w-4 h-4 rounded accent-blue-600 cursor-pointer"
+                            />
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            {mod.create !== undefined ? (
+                              <input
+                                type="checkbox"
+                                checked={hasBit(mod.create)}
+                                onChange={() => toggleBit(mod.create!)}
+                                className="w-4 h-4 rounded accent-blue-600 cursor-pointer"
+                              />
+                            ) : <span className="text-slate-200">—</span>}
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            {mod.edit !== undefined ? (
+                              <input
+                                type="checkbox"
+                                checked={hasBit(mod.edit)}
+                                onChange={() => toggleBit(mod.edit!)}
+                                className="w-4 h-4 rounded accent-blue-600 cursor-pointer"
+                              />
+                            ) : <span className="text-slate-200">—</span>}
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            {mod.del !== undefined ? (
+                              <input
+                                type="checkbox"
+                                checked={hasBit(mod.del)}
+                                onChange={() => toggleBit(mod.del!)}
+                                className="w-4 h-4 rounded accent-blue-600 cursor-pointer"
+                              />
+                            ) : <span className="text-slate-200">—</span>}
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <input
+                              type="checkbox"
+                              checked={allSet}
+                              ref={el => { if (el) el.indeterminate = someSet && !allSet; }}
+                              onChange={() => toggleModule(mod)}
+                              className="w-4 h-4 rounded accent-emerald-600 cursor-pointer"
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="px-5 py-4 border-t border-slate-200 flex gap-3 flex-shrink-0">
+              <button onClick={() => setPermModal(null)} className="flex-1 border border-slate-300 text-slate-700 py-2 rounded-lg text-sm hover:bg-slate-50 transition-colors">
+                Cancelar
+              </button>
+              <button
+                onClick={handleSavePermissions}
+                disabled={savingPerm}
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white py-2 rounded-lg text-sm font-medium transition-colors"
+              >
+                {savingPerm ? "Salvando..." : "Salvar permissões"}
               </button>
             </div>
           </div>

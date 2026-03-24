@@ -28,12 +28,12 @@ export default function EdiPage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [clientsData, conversionsData] = await Promise.all([
+      const [clientsRes, conversionsRes] = await Promise.allSettled([
         ediClientService.getAll(),
         ediConversionService.getAll(),
       ]);
-      setClients(clientsData);
-      setRecentConversions(conversionsData.slice(0, 5));
+      if (clientsRes.status === "fulfilled") setClients(clientsRes.value);
+      if (conversionsRes.status === "fulfilled") setRecentConversions(conversionsRes.value.slice(0, 5));
     } catch (err) {
       console.error(err);
     } finally {

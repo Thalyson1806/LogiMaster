@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MissingPart, MissingPartsSummary, ProjectedBalancePoint } from "@/lib/types";
 import { missingPartsService } from "@/lib/services";
 import {
@@ -186,9 +186,8 @@ export default function MissingPartsPage() {
               </tr>
             ) : (
               filtered.map((item) => (
-                <>
+                <React.Fragment key={item.productId}>
                   <tr
-                    key={item.productId}
                     className={`border-b border-slate-100 hover:bg-slate-50 cursor-pointer ${
                       item.riskLevel === "Critical" ? "bg-red-50/30" : ""
                     }`}
@@ -266,7 +265,7 @@ export default function MissingPartsPage() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))
             )}
           </tbody>

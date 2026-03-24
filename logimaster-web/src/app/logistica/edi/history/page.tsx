@@ -37,13 +37,12 @@ export default function EdiHistoryPage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [clientsData, conversionsData] = await Promise.all([
+      const [clientsRes, conversionsRes] = await Promise.allSettled([
         ediClientService.getAll(),
         ediConversionService.getAll(),
       ]);
-      setClients(clientsData);
-      setConversions(conversionsData);
-      setFilteredConversions(conversionsData);
+      if (clientsRes.status === "fulfilled") setClients(clientsRes.value);
+      if (conversionsRes.status === "fulfilled") { setConversions(conversionsRes.value); setFilteredConversions(conversionsRes.value); }
     } catch (err) {
       console.error(err);
     } finally {

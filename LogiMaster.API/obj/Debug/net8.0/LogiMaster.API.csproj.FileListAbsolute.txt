@@ -204,3 +204,5 @@
 /home/thalyson/projetos/log/src/LogiMaster.API/obj/Debug/net8.0/LogiMaster.API.genruntimeconfig.cache
 /home/thalyson/projetos/log/src/LogiMaster.API/obj/Debug/net8.0/ref/LogiMaster.API.dll
 /home/thalyson/projetos/log/src/LogiMaster.API/bin/Debug/net8.0/appsettings.Development.json
+/home/thalyson/projetos/log/src/LogiMaster.API/obj/Debug/net8.0/LogiMaster.API.sourcelink.json
+/home/thalyson/projetos/log/src/LogiMaster.API/bin/Debug/net8.0/BCrypt.Net-Next.dll

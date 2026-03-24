@@ -25,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
     private IWarehouseLocationRepository? _warehouseLocations;
     private IProductLocationRepository? _productLocations;
     private IStockMovementRepository? _stockMovements;
+    private IAuditLogRepository? _auditLogs;
  
     // ===== NOVO: Repositório de Embalagens =====
     private IPackagingRepository? _packagings;
@@ -118,6 +119,9 @@ public class UnitOfWork : IUnitOfWork
         _edifactItems ??= new EdifactItemRepository(_context);
         public IStockMovementRepository StockMovements =>
     _stockMovements ??= new StockMovementRepository(_context);
+
+    public IAuditLogRepository AuditLogs =>
+        _auditLogs ??= new AuditLogRepository(_context);
 
 
 

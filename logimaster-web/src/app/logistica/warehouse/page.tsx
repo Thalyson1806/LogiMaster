@@ -45,12 +45,12 @@ export default function WarehousePage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [streetsData, locationsData] = await Promise.all([
+      const [streetsRes, locationsRes] = await Promise.allSettled([
         warehouseService.getStreets(),
         warehouseService.getLocations()
       ]);
-      setStreets(streetsData);
-      setLocations(locationsData);
+      if (streetsRes.status === "fulfilled") setStreets(streetsRes.value);
+      if (locationsRes.status === "fulfilled") setLocations(locationsRes.value);
     } catch (err) {
       console.error(err);
     } finally {

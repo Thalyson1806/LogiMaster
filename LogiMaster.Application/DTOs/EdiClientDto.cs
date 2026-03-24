@@ -28,6 +28,7 @@ public record CreateEdiClientDto(
     string? FileType
 );
 
+
 public record UpdateEdiClientDto(
     string Name,
     string? Description,

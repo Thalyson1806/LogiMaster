@@ -32,7 +32,7 @@ public class UserService : IUserService
         if (await _unitOfWork.Users.EmailExistsAsync(dto.Email, cancellationToken: cancellationToken))
             throw new InvalidOperationException("Email já cadastrado");
 
-        var user = new User(dto.Name, dto.Email, dto.Password, dto.Role);
+        var user = new User(dto.Name, dto.Email, BCrypt.Net.BCrypt.HashPassword(dto.Password), dto.Role);
         user.Update(dto.Name, dto.Department, dto.Role, dto.EmployeeId);
         user.SetPermissions(dto.Permissions);
 
@@ -66,7 +66,7 @@ public class UserService : IUserService
         var user = await _unitOfWork.Users.GetByIdAsync(id, cancellationToken);
         if (user is null) return false;
 
-        user.ChangePassword(newPassword);
+        user.ChangePassword(BCrypt.Net.BCrypt.HashPassword(newPassword));
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return true;
     }

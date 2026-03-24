@@ -23,7 +23,8 @@ public interface IUnitOfWork : IDisposable
     IWarehouseLocationRepository WarehouseLocations { get; }
     IProductLocationRepository ProductLocations { get; }
 
-    IStockMovementRepository StockMovements { get; }   // ← novo
+    IStockMovementRepository StockMovements { get; }
+    IAuditLogRepository AuditLogs { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     Task BeginTransactionAsync(CancellationToken cancellationToken = default);

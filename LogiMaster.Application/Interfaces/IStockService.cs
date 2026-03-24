@@ -8,4 +8,5 @@ public interface IStockService
     Task<IEnumerable<StockMovementDto>> GetMovementsByProductAsync(int productId, CancellationToken ct = default);
     Task<StockMovementDto> RegisterMovementAsync(CreateStockMovementDto dto, int userId, CancellationToken ct = default);
     Task<IEnumerable<StockMovementDto>> RegisterBulkMovementsAsync(BulkCreateStockMovementDto dto, int userId, CancellationToken ct = default);
+    Task<bool> DeleteMovementAsync(int id, CancellationToken ct = default);
 }

@@ -50,6 +50,7 @@ import {
   StockMovement,
   CreateStockMovement,
   PendingLabelItem,
+  AuditLogPage,
 } from "./types";
 
 // CUSTOMERS
@@ -88,10 +89,7 @@ export const billingRequestService = {
   getPendingItemsByCustomer: (customerId: number) =>
     getAPI<BillingRequestItem[]>(`/billingrequests/pending-items/${customerId}`),
 
-  delete: (id: number) =>
-    fetch(`${BASE_URL}/api/billingrequests/${id}`, { method: "DELETE" }).then(r => {
-      if (!r.ok) throw new Error("Erro ao excluir solicitação");
-    }),
+  delete: (id: number) => deleteAPI<void>(`/billingrequests/${id}`),
 
   // Pré-validação do arquivo
   preValidate: async (file: File): Promise<PreValidateImportResult> => {
@@ -418,6 +416,23 @@ export const stockService = {
 
   registerMovement: (data: CreateStockMovement) =>
     postAPI<StockMovement>("/stock/movement", data),
+
+  deleteMovement: (id: number) => deleteAPI<void>(`/stock/movement/${id}`),
+};
+
+// AUDITORIA
+export const auditService = {
+  getLogs: (params?: { userId?: number; from?: string; to?: string; action?: string; page?: number; pageSize?: number }) => {
+    const q = new URLSearchParams();
+    if (params?.userId) q.append("userId", params.userId.toString());
+    if (params?.from) q.append("from", params.from);
+    if (params?.to) q.append("to", params.to);
+    if (params?.action) q.append("action", params.action);
+    if (params?.page) q.append("page", params.page.toString());
+    if (params?.pageSize) q.append("pageSize", params.pageSize.toString());
+    const qs = q.toString() ? `?${q.toString()}` : "";
+    return getAPI<AuditLogPage>(`/audit${qs}`);
+  },
 };
 
 // ETIQUETAS

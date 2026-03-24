@@ -37,3 +37,4 @@
 /home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.pdb
 /home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.genruntimeconfig.cache
 /home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/ref/LogiMaster.Infrastructure.dll
+/home/thalyson/projetos/log/src/LogiMaster.Infrastructure/obj/Debug/net8.0/LogiMaster.Infrastructure.sourcelink.json

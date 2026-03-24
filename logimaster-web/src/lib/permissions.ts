@@ -23,95 +23,35 @@ export type Resource =
   | "warehouse"
   | "mapa";
 
-type PermissionMap = Record<Role, Partial<Record<Resource, Action[]>>>;
-
-const PERMISSIONS: PermissionMap = {
-  Administrator: {
-    usuarios:     ["view", "create", "edit", "delete"],
-    clientes:     ["view", "create", "edit", "delete"],
-    produtos:     ["view", "create", "edit", "delete"],
-    embalagens:   ["view", "create", "edit", "delete"],
-    solicitacoes: ["view", "create", "edit", "delete"],
-    romaneios:    ["view", "create", "edit", "delete"],
-    expedicao:    ["view", "create", "edit", "delete"],
-    faturamento:  ["view", "create", "edit", "delete"],
-    estoque:      ["view", "create", "edit", "delete"],
-    edi:          ["view", "create", "edit", "delete"],
-    warehouse:    ["view", "create", "edit", "delete"],
-    mapa:         ["view"],
-  },
-  LogisticsAnalyst: {
-    usuarios:     [],
-    clientes:     ["view", "edit"],
-    produtos:     ["view", "edit"],
-    embalagens:   ["view"],
-    solicitacoes: ["view", "create", "edit", "delete"],
-    romaneios:    ["view", "create", "edit", "delete"],
-    expedicao:    ["view", "create", "edit"],
-    faturamento:  ["view", "create", "edit"],
-    estoque:      ["view"],
-    edi:          ["view", "create", "edit"],
-    warehouse:    ["view", "edit"],
-    mapa:         ["view"],
-  },
-  Shipping: {
-    usuarios:     [],
-    clientes:     ["view"],
-    produtos:     ["view"],
-    embalagens:   ["view"],
-    solicitacoes: ["view", "create"],
-    romaneios:    ["view", "create", "edit"],
-    expedicao:    ["view", "create", "edit"],
-    faturamento:  ["view"],
-    estoque:      ["view"],
-    edi:          ["view"],
-    warehouse:    ["view"],
-    mapa:         ["view"],
-  },
-  Invoicing: {
-    usuarios:     [],
-    clientes:     ["view"],
-    produtos:     ["view"],
-    embalagens:   ["view"],
-    solicitacoes: ["view"],
-    romaneios:    ["view"],
-    expedicao:    ["view"],
-    faturamento:  ["view", "create", "edit", "delete"],
-    estoque:      ["view"],
-    edi:          ["view"],
-    warehouse:    ["view"],
-    mapa:         ["view"],
-  },
-  Viewer: {
-    usuarios:     [],
-    clientes:     ["view"],
-    produtos:     ["view"],
-    embalagens:   ["view"],
-    solicitacoes: ["view"],
-    romaneios:    ["view"],
-    expedicao:    ["view"],
-    faturamento:  ["view"],
-    estoque:      ["view"],
-    edi:          ["view"],
-    warehouse:    ["view"],
-    mapa:         ["view"],
-  },
-  Driver: {
-    usuarios:     [],
-    clientes:     [],
-    produtos:     [],
-    embalagens:   [],
-    solicitacoes: [],
-    romaneios:    ["view"],
-    expedicao:    [],
-    faturamento:  [],
-    estoque:      [],
-    edi:          [],
-    warehouse:    [],
-    mapa:         ["view"],
-  },
+// Espelha AppModule.cs — bit de "visualizar" de cada módulo
+const RESOURCE_VIEW_BIT: Partial<Record<Resource, number>> = {
+  romaneios:    1 << 0,   // Romaneios
+  expedicao:    1 << 0,   // usa o mesmo módulo de Romaneios
+  edi:          1 << 4,   // Edi
+  faturamento:  1 << 8,   // Faturamento
+  solicitacoes: 1 << 8,   // Solicitações = Faturamento
+  clientes:     1 << 12,  // Clientes
+  produtos:     1 << 16,  // Produtos
+  embalagens:   1 << 16,  // Embalagens usa módulo de Produtos
+  estoque:      1 << 20,  // Estoque
+  warehouse:    1 << 20,  // Armazém usa módulo de Estoque
+  mapa:         1 << 24,  // Mapa
+  // usuarios não tem bit — acesso apenas por role Administrator
 };
 
-export function can(role: Role, resource: Resource, action: Action): boolean {
-  return PERMISSIONS[role]?.[resource]?.includes(action) ?? false;
+/**
+ * Verifica se o bitmask de permissões contém o bit de visualização do recurso.
+ * Administrator sempre retorna true.
+ */
+export function canBit(role: Role, permBits: number, resource: Resource): boolean {
+  if (role === "Administrator") return true;
+  if (resource === "usuarios") return false;
+  const bit = RESOURCE_VIEW_BIT[resource];
+  if (bit === undefined) return false;
+  return (permBits & bit) !== 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function can(_role: Role, _resource: Resource, _action: Action): boolean {
+  return false;
 }

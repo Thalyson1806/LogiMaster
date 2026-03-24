@@ -159,6 +159,7 @@ export default function StreetDetailPage() {
     p.description.toLowerCase().includes(productSearch.toLowerCase())
   );
 
+
   // Calcular quantos locais serão criados
   const bulkCount = 
     (bulkForm.rackEnd - bulkForm.rackStart + 1) *

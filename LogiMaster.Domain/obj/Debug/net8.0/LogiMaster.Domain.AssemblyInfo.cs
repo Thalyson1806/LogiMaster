@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LogiMaster.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7efcdf70a0f22e41a17a07f3a446a7b7d43ca093")]
 [assembly: System.Reflection.AssemblyProductAttribute("LogiMaster.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LogiMaster.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

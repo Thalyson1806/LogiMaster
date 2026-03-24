@@ -52,15 +52,14 @@ export default function CustomerProductLinksPage() {
   async function loadAll() {
     try {
       setLoading(true);
-      const [data, c, p] = await Promise.all([
+      const [dataRes, cRes, pRes] = await Promise.allSettled([
         customerProductService.getAll(),
         customerService.getAll(),
         productService.getAll(),
       ]);
-      setLinks(data);
-      setFiltered(data);
-      setCustomers(c);
-      setProducts(p);
+      if (dataRes.status === "fulfilled") { setLinks(dataRes.value); setFiltered(dataRes.value); }
+      if (cRes.status === "fulfilled") setCustomers(cRes.value);
+      if (pRes.status === "fulfilled") setProducts(pRes.value);
     } catch (err) {
       console.error(err);
     } finally {

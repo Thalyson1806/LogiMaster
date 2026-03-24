@@ -713,6 +713,24 @@ export interface CreateStockMovement {
   notes?: string;
 }
 
+// ===== AUDITORIA =====
+export interface AuditLog {
+  id: number;
+  userId?: number;
+  userName?: string;
+  action: string;
+  entityType?: string;
+  entityId?: number;
+  details?: string;
+  ipAddress?: string;
+  createdAt: string;
+}
+
+export interface AuditLogPage {
+  total: number;
+  items: AuditLog[];
+}
+
 // ===== ETIQUETAS =====
 export interface PendingLabelItem {
   itemId: number;

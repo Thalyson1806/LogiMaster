@@ -21,3 +21,4 @@
 /home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/refint/LogiMaster.Domain.dll
 /home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.pdb
 /home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/ref/LogiMaster.Domain.dll
+/home/thalyson/projetos/log/src/LogiMaster.Domain/obj/Debug/net8.0/LogiMaster.Domain.sourcelink.json

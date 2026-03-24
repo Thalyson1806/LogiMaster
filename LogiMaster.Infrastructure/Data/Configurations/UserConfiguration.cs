@@ -1,4 +1,5 @@
 using LogiMaster.Domain.Entities;
+using LogiMaster.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -29,7 +30,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.Permissions)
             .IsRequired()
-            .HasDefaultValue(0L);
+            .HasDefaultValue(AppModule.None);
 
         builder.Property(u => u.Department)
             .HasMaxLength(100);

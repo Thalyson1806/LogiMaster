@@ -33,9 +33,21 @@ async function fetchAPI<T>(
         },
     });
    
+    if (response.status === 401) {
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("logimaster_user");
+            window.location.href = "/login";
+        }
+        throw new Error("Sessão expirada. Faça login novamente.");
+    }
+
     if (!response.ok) {
         const error = await response.text();
         throw new Error(error || "Erro na requisição");
+    }
+
+    if (response.status === 204 || response.headers.get("content-length") === "0") {
+        return undefined as T;
     }
 
     return response.json();

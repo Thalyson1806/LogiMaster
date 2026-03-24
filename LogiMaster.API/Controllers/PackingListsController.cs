@@ -109,12 +109,6 @@ public class PackingListsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("active-drivers")]
-    public ActionResult<IEnumerable<DriverLocationDto>> GetActiveDrivers()
-    {
-        return Ok(PackingListHub.ActiveDrivers.Values);
-    }
-
     [HttpGet("pending-labels")]
     public async Task<ActionResult<IEnumerable<PendingLabelItemDto>>> GetPendingLabels(
         [FromQuery] int userId, CancellationToken cancellationToken)
@@ -190,7 +184,10 @@ public class PackingListsController : ControllerBase
     {
         try
         {
-            var packingList = await _packingListService.StartConferenceAsync(id, 1, cancellationToken);
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+                return Unauthorized();
+            var packingList = await _packingListService.StartConferenceAsync(id, userId, cancellationToken);
             await NotifyStatusChange(packingList);
             return Ok(packingList);
         }

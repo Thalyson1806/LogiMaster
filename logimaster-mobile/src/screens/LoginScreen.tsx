@@ -48,6 +48,14 @@ export default function LoginScreen({ navigation }: any) {
         throw new Error(data.message || "Email ou senha inválidos");
       }
 
+      // Decodifica o JWT para obter as permissões como número
+      let permissions = 0;
+      try {
+        const payloadB64 = data.token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+        const payloadJson = JSON.parse(atob(payloadB64));
+        permissions = parseInt(payloadJson["permissions"] ?? "0", 10);
+      } catch {}
+
       await AsyncStorage.setItem("token", data.token);
       await AsyncStorage.setItem("user", JSON.stringify({
         id: data.userId,
@@ -55,6 +63,7 @@ export default function LoginScreen({ navigation }: any) {
         email: data.email,
         role: data.role,
         employeeId: data.employeeId ?? null,
+        permissions,
       }));
 
       const isDriver = data.role === "Driver";
